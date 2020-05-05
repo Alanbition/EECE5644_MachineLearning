@@ -7,22 +7,14 @@ N = numberOfSamples;
 
 % Randomly determine class labels for each sample
 thr = linspace(0,1,C+1); % split [0,1] into C equal length intervals
-%C = 3
-%thr = [0, 0.25, 0.75, 1]
-
 u = rand(1,N); % generate N samples uniformly random in [0,1]
-
-%u = [0 , 1 , 0 ......n]
 labels = zeros(1,N);
 for l = 1:C
-    ind_l = find(thr(l)<u & u<=thr(l+1));%Find u between each thr
-    labels(ind_l) = repmat(l,1,length(ind_l));%Put l as label in labesl Array
+    ind_l = find(thr(l)<u & u<=thr(l+1));
+    labels(ind_l) = repmat(l,1,length(ind_l));
 end
 
 a = [1:C].^3; b = repmat(2,1,C); % parameters of the Gamma pdf needed later
-
-% a = [1 2 3].^3 b = [2 2 2]
-
 % Generate data from appropriate rings
 % radius is drawn from Gamma(a,b), angle is uniform in [0,2pi]
 angle = 2*pi*rand(1,N);
@@ -34,11 +26,11 @@ end
 
 data = [radius.*cos(angle);radius.*sin(angle)];
 
-% if 1
-%     colors = rand(C,3);
-%     figure(1), clf,
-%     for l = 1:C
-%         ind_l = find(labels==l);
-%         plot(data(1,ind_l),data(2,ind_l),'.','MarkerFaceColor',colors(l,:)); axis equal, hold on,
-%     end
-% end
+if 1
+    colors = rand(C,3);
+    figure(1), clf,
+    for l = 1:C
+        ind_l = find(labels==l);
+        plot(data(1,ind_l),data(2,ind_l),'.','MarkerFaceColor',colors(l,:)); axis equal, hold on,
+    end
+end
